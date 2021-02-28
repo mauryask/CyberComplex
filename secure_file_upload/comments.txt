@@ -1,0 +1,7 @@
+----------- here in this program file upload vulnerability is fixed ----------
+
+>> .htaccess file
+>> this is a server configuration file for 'apache server' where various rules are defined
+>> to prevent direct access to a folder via url just put a file '.htaccess' in that folder
+(see the uploads folder)-- see the link
+>> https://www.danielmorell.com/guides/htaccess-seo/basics/introduction-to-the-htaccess-file
