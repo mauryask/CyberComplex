@@ -12,6 +12,9 @@ if(isset($_POST['upload']))
     /*
     * Just use capital letter or other valid php file supported
     * extensions (e.g pht) to by pass such validations
+
+    * Here we are checking that the file should not contain
+    * these extension in the start , middle, end whatever
     */
     if(preg_match('/(.*)\.(php|php1|php2|php3|php4|php5|php6|php7|phtm|exe)$/i',$file_name))
     {

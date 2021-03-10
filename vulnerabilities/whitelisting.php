@@ -11,9 +11,12 @@ if(isset($_POST['upload']))
     // if file name contains these extensions then allow else block
     
     /*
-    * Just change the file nae (shell.php  -> shell.php.jpg)
+    * Just change the file name (shell.php  -> shell.php.jpg)
     * and content type (application-xt/php -> image/jpeg) 
     * if file type is also beng verified
+    
+    * Here we are making suere that the file must contain these allowed
+    * extension but not checking that it should be at the end of the file
     */
 
    $except = array("jpg", "jpeg", "png", "gif");
@@ -23,7 +26,8 @@ if(isset($_POST['upload']))
     {
         echo "Proceed to upload!";
     }
-    else{
+    else
+    {
         echo "Invalid File!";
     }
    
