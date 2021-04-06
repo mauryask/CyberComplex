@@ -1,0 +1,321 @@
+>>>>>>>>>>>
+How to give kali windows10 like look
+>> kali-undercover : this commad change your kali into windows like mahine
+>> type above command again to switch to kali
+
+<<==========================================>>
+
+2: SHORTCUTS
+
+>> ctrl + C : kill a running process
+>> ctrl + Z : stop a running process(suspend)
+>> fg process_id : resumes the stoped process
+>> ctrl + a : move the cursor to the begining of the line
+>> ctrl + e : move te cursor to the end of the line
+>> ctrl + K : cuts all the text after cursor
+>> ctrl + w : delete a word before the cursor
+>> ctrl + u : clear the line (erase every thing before the cursor)
+>> ctrl + r : search through previously used commands
+>> ctrl + t : swap the last teo characters before the cursor
+>> ESC + t  : swap the last two words before rhe cursor
+>> ctrl + h : delete the letter starting at the cursor (same as backspace)
+
+<<======================================>>
+
+3: passwd : this command is used to change the current passsword
+>> remeber -->  linux is case sensitive
+
+
+<<======================================>>
+
+4: COMMANDS
+
+>> cd : change directory
+>> pwd : print working directory
+>> ls : list directory content
+>> touch : create file
+>> mkdir : create directory/make directory
+>> less : shows file content
+>> head -[n] : show first n lines of a file (by default n = 10)
+>> head -n 5 > shows first five line
+>> tail -[n] : show last ten lines of a file (by default n = 10)
+>> tail -n 5 > shows last 5 lines
+>> cp : copy file
+>> mv : move or rename
+>> rm : remove file
+>> rmdir : remove directory
+>> cd ~ : go to your home directory (or just type >> cd)
+>> cd - : navigate to previously opened directory
+>> cat file_name : open a file (shift+up/down scroll)
+>> less file_name : open file (up/down arrow / spce scroll)
+
+
+<------------ copy files and folders -------------->
+
+>> cp source_path dest_path : copy content of a folder into another (by defult it override if source file alredy exists in target directory)
+>> cp -r source_dir dest_dir : copy all the contents of a directory into another (copy recursively )
+>> cp -i source destination : copy interactive
+>> (if source file/directory already present in the
+>> destination directory then the above command going to ask you do u want to override it)
+>> type yes/no > for appropriate action
+
+
+<------------ crate file and folder -------------->
+
+>> mkdir /tmp/dir1 : crate a directory indside tmp directory
+>> mkdir -p /tmp/dir1/dir2 : create directory inside directory
+>> touch /tmp/my_file : create a new file inside a directory (or create file inside directory/direcrty/dir/file)
+
+
+<------------ move (rename) file and folder -------------->
+
+>> mv source destination : moving file from souurce to destination 
+>> mv -r src dest : (move recursively) move the entire content of a folder into another
+>> mv -i src dest : (move interactive) (same as cp command)
+>> mv src . : (move to current working directory)
+>> mv src .. : (move to parent directory of the current directory)
+
+
+<------------ remove file and folder -------------->
+
+>> rm file_name : remove a file
+>> rmdir directory_name : (remove directory : provided the directory should be empty)
+>> rm -r dir_name : (remove directory recursively : remove even if the directory is not empty)
+>> rm -r -i dierctory name : (remove interactive)
+>> rm -rf directory : force remove (this command is used if directory is besing accessed by a program and you can not access it) 
+
+ 
+<------------ crate file and folder -------------->
+
+>> ls command options
+>> ls -l : long list (show files/folders with discription (like date of creation etc))
+>> ls -a : show hidden files and folders
+>> ls -r : list name in reverse order
+>> ls -t : list newest first
+>> ls -rt : list oldest first
+>> ls -al : show all the dirctories including hidden directories with description
+>> similiarly other can be combined
+>> ls -rl
+>> ls -ra and so on
+
+<<======================================>>
+
+5: Since from kali 2020 the user is not set to root by default so how to setup root account
+--> type following commands
+>>  sudo su (switch to root)
+>> enter current kali user password
+>> passwd root
+>> enter new password for root account and retype it
+>> now logoff amd sign in as root
+>> using user: root
+>> password: whatever password you have created for root account
+
+<<======================================>>
+
+6: Importatnt thing to remember
+
+>> $ : sign indicates that u are a low privilege user
+>> # : this sign indicates that u are a super user (root user)
+
+<<======================================>>
+
+7: Package Management tool in kali
+
+>> apt (advance packaging tool) : (Debian) kali linux package management tool
+>> yum : Red hat Linux, Fedora etc has package management tool
+ 
+>> apt-cahe search pkg_name : search for a package
+>> apt-cache show pkg_name  : show information about a package
+>> apt-get install pkg_name : to install a package
+>> apt-get remove pkg_name  : remove an existing pakage (but it does not remove the configuration file : so that when u reinstall the
+>> software u dont need to configure it)
+>> apt-get purge pkg_name   : remove  package along with the configuration files
+>> apt-get -y install pkg_name : this automatically installs the package (dos not ask for yes/no)
+>> apt-get update           : updates the list of packages there versions from remote repos (that needed to be installed)
+>> apt-get upgrade 	   : upgrade the whole distribution to a new version 
+>> apt full-upgrade (apt-get dist-upgrade) : full upgrade the Distro
+
+--> after Linux-2016 u dont even need to use (apt-get or apt-cache : just use "apt" 
+because these two commands cobined into one after Linux-2016 -> apt)
+
+>> apt autoremove : this will remove all the residual files(that remains in your system even after uninstalling a package)
+
+<<-------------- But from where these package came from when u use apt command ------------>>
+
+>> basically there are repositories for the software packages, when u issue apt commad it goes to that repos 
+>> and finds the package for you 
+--> u can see the source of these package using the following commands
+>> cat /etc/apt/sources.list
+
+<<--------------
+sometimes software may not be found in the apt repos 
+or considere a case when you hacked a kali machine and you connested to it as non-root user 
+or consider a situation the machine you broke into may not have internet connection 
+now what is the solution if you want to install softwares in such cases
+------------>>
+
+>> dpkg -l : to see the details of all the softwares installed in it (eg. version)
+>> dpkg -i package.deb : install a package
+>> dpkg -r package.deb : remove a package
+
+<<======================================>>
+
+8: to see last 500  comands you executed 
+>> less .bash_history  or
+>> cat .bash_history
+
+<<======================================>>
+
+9: know about your shell
+>> cat  /etc/shells : (show all the available shells on your system)
+>> echo $SHELL : name of your shell (u r working on)
+
+<<======================================>>
+
+10: see docuentation of a commad
+>> man command_name
+>> command_name --help 
+>> info command_name
+>> command_name -h
+
+<<======================================>>
+
+11:
+>> cal : shows the calander
+>> date : shows the currnt date
+
+
+<<======================================>>
+
+12: interacting with the VI (text editor)
+>> vi file_name : create and open a file in vi text editor
+>> ESC + SHIFT + I > to go into edit mode
+>> ESC -> to go into comand mode
+
+>> : w > save a file
+>> : wq > save and quit file or
+>> : x > same as above
+>> : q > quit file
+>> : line_number > to go on a specific line
+>> : /string to search > search for a string
+
+
+<<======================================>>
+
+13: Archivig and comression the files (taking a backup)
+> archiving : if you archive 20MB file it will remain of the same size
+> compression : on compressing a file reduces its size hence cost reduced
+
+> archiving tool
+
+> tar (tape archive)
+
+>> tar c : create archive
+>> tar r : append archive
+>> tar t : list the contents of the archive
+>> tar x : Extract archive
+>> tar v : verbose
+>> tar f file : file to use
+
+
+> Compressing tools
+
+> gzip : Classical compresion in the linux
+> bzip2 : more advance compression than gzip (reduce size more than gzip but more time needed to compress)
+
+>> d : decompression
+
+>> tar cvf archive_file_name.tar fil1 file2 file3 dir  : create the archive file
+>> tar tvf archive_file_name.tar : it shows the contents of the archive file
+>> tar rvf archive_file_name.tar file1 : add file to archive
+>> tar rvf archive_file_name.tar dir1 : add directory to the archive
+>> tar xvf archive_file.tar  file1.txt : extract a single file
+>> tar xvf archive.tar : extract every thing
+>> tar xvf archive.tar dir1/test.txt  : extrat test.txt file from a directory
+>> tar xvf archive.tar -C ~/Desktop  :  extract files in another directroy
+
+<-------------  Archive and Compress  ------------>
+>> tar zcvf archive.tar.gz file1 file2 dir1 dir2
+>> tar jcvf archive.tar.bz2 file1 file2 dir1 dir2 
+>> tar ztvf archive.tar.gz : list the content of compressed file
+>> similiarly for 'jcvf' 
+>> you can not add new files and directories into compressed file : tar zrvf archive.tar.gz filex.txt (not allowed)
+>> tar zxvf archive.tar.gz : extract the files
+>> tar zxvf archive.tar.gz -C ~/Desktop : extract the files in another folder
+
+<<======================================>>
+<--------- Compressing the file ------------>
+Using bzip2
+>> bzip2 file_name (compression)
+>> bzip2 -d file_name.bz2 (decompression)
+
+Using gzip
+>> gzip file_name
+>> gzip -d file_name
+
+>> Using 'zip' command to compress and decompress the files and folders
+>> zip [options] [zip_file_name] [fikles and folders to zip]
+Deleting a file from the zipped.zip file
+>> zip -d [my_zip.zip] [test.txt] -> test.txt file will be deleted from the my_zip.zip
+adding files to the zip archive
+>> zip -u my_zip.zip [new_file.txt]
+Remove files and delete directory if empty
+>> zip -m my_zip.zip *.c -> if folder containg these files becomes empty then folder will automatically deleted
+>> zip -r my_zip.zip [dir_name] -> recursively zip a directory
+>> zip -x my_zip.zip [file_to_excluse] -> zip everyting except given file
+>> zip -v my_zip [files] -> see verbose as well
+>> List the files and folders without extracting it
+>> zipinfo [zip-file-name]
+Unzip the file
+>> unzip [zipped_file.zip]
+
+<<======================================>>
+
+14: Wild Cards 
+>> * : match 0 or more characters
+>> ? : match exactly one chatacter
+>> [] : match charcters within the braces
+>>\ : escape
+
+<<======================================>>
+
+15: tree command (if this command does not exist install it >> apt-get install tree)
+>> tree : this command lists all the contents of directories in a more graphical way
+>> tree . : do the same as above 
+
+<<======================================>>
+
+16: Getting Help
+>> file file_name : this commad gives information about the file (like format, type etc)
+>> apropos commnd_name : this tells that what you can do with a given commad
+>> man -k command_name : find all the manual associate with the given keywrod (command)
+>> commad_name --help : list of options you can use iwth this command
+>> command_name -h : do the same task as above
+>> man command_name : open manual of a command
+>  use up and down arrows to go up and down in the manual
+>  use 'shift + G' key to go down at once
+>  use 'G' key to go up at once  
+
+> search for a keyword in the manual : type
+>> /key_word : hit enter
+>  use 'Shift + N' to get into previous one
+>  use 'N' to get into  next one
+>  press 'Q' to close the manual 
+
+ 
+<<======================================>>
+
+17: Locate a file (find a file)
+>> locate file_name : this commands gives the full path of the file if it exist
+>  example --> locate unix_password.txt : this file is a huge dictionary of the passwords
+
+
+<<======================================>>
+
+18: count the elements in a file
+>> wc  file_name   : prints number of lines, words and bytes
+>> wc -l file_name : prints the number of lines a file
+>> wc -w file_name : number of words
+>> wc -c file_name : number of bytes in a file
+>> wc -m file_name : number of characters in file
+>> wc -L file_name : prints only the length of the longest line in a file

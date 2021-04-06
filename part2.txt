@@ -1,0 +1,314 @@
+1: Networking Basic (You will understand this after completing the networking course)
+
+>> Network Intefaces:
+> How your comuter is connected to a network (name of intefaces)
+> eth0  : wired network interface
+> wlan0 : wireless network interface
+> lo    : loop back address (home or localhost : 127.0.0.1 or ::1)
+
+<<======================================>>
+
+2: find your Ip address
+>> ifconfig : gives your ip address
+>> nslookup website_name : get the (name)address of "your" the dns server (to which DNS srever you are communicating with)
+>> Anoter way to get the name of your DNS server by looking into file '/etc/resolv.conf' file
+>> cat /etc/resolv.conf
+
+<<======================================>>
+
+3: find out the gateway that your packets are going through
+> ip route 
+>> see what are the services are running by the host
+> netstat -antp > a, n, t,p are options here  (did niot get this command exactly)
+
+<<======================================>>
+
+4: editing a file 
+>> kali has many text editors available into it
+>  vi, vim, emacs : (these are more advance editors) 
+>  nano, pico : these are less powerful than above
+> editing with nano
+>> ctrl + W : to sreach a word in forward direction
+>> alt + W : to go to next searched word
+
+>> innano text editor :  (^)-> CTRL & (M) -> ALT keys
+
+<<======================================>>
+
+5: Baisc Service Configuration
+>  There are various services availbale in Kali linux
+>> SSH (secure shell) : used for remote login and remote administration
+(so if u are some where else on the internet u can use SSH to login to another linux system)
+>> Apache : Web Server
+
+<------------- Post Exploitation Tip ---------------->
+>> After compromising a host you can upload or download files using 
+>> Apache, SSH, SCP (Secure copy) services
+
+> Turning Kali into a web server (starting Apche server)
+>> service apache2 start   : this starts the apache server
+>> service apache2 restart : this restarts the apache server
+>> service apache2 stop    : this stops the apache server
+>> service apache2 status : check whether running or stopped
+>> all the web files are stored in : "/var/www/html" directory 
+
+>> echo  "some Text" > filename : this command going to store the test into specified file_name
+-> this is called command redirection
+
+<----------------  Amazing, I surprised to see this  ------------------>
+>> Now you can access this file from any other machine 
+just by using th IP of this machine (192.168.93.43/downloadme)
+
+<<======================================>>
+
+6: wget : this commad is used to download a file from a server (system) over http and https protocol
+>> example : wget http://192.168.43.93/downloadme (this will download this file into your system)
+>> wget https://iamannitian.co.in/index.php : this will download index.php file
+
+<<======================================>>
+
+7: modifying the SSH configuration file
+>> By default the SSH is not accessible as root privilage to get root access change following file
+>  "/etc/ssh/sshd_config" file
+>  Uncomment the line : PermitRootLogin yes <-- write yes infront of the line by removing the prewritten word 
+> now ssh sever is accessible with root privilage
+>> service ssh start
+>> type root password (and ssh is started)
+
+
+<!------->
+Login remotely from a linux PC to another linux pc
+>> ssh 192.168.43.93
+> enter root password (if you want to login as root)
+> else specify the user name with password (see the commands below)
+>> ssh kali@192.168.43.93 
+>> enter kali(user password)
+
+<<======================================>>
+> scp(secure copy) a tool used to copy remote files to local machine and vice-versa
+> learn how to use scp on kali
+
+
+<<======================================>>
+
+8: Managing Users and Groups
+
+>> Post Exploitation Tip (after compromising a host you can find who you are (root or low privilage user))
+>> also you can check to which group you belong
+
+<------------------------>
+>> In linux every user is assigned a ID
+>  root user id : 0
+>> when you create a new user the then the ID starts from 1000, 1001.. and so on   
+>> By default every time when you create a new user it belongs to the
+a group with the same name is created as the username and user belongs to this newly created group
+
+> whoami : this commnd gives the user name (like root, kali etc whatever user you are)
+
+
+<<======================================>>
+
+9: if you want to see who is login cureently and what he is doing (his history of usage)
+> w : type simply 'w' command
+
+<<======================================>>
+
+10: to see list of user on this system (open the passwd file)
+>> cat /etc/passwd : here most of the users are added by default 
+
+> note : here the user who holds -> /bin/bash  >> can access the machine (means can login remotly : but not others)
+
+>> to see the encrypted passwords of the users (open shadow file : remember only root user can access this file)
+> cat /etc/shadow : this will show your passwords of all the users In encrypted format
+
+>> you can decypt these hashes and compromise the host (find the way to decrypt it : not taught by the tutor)
+
+<<======================================>>
+
+11: finding the group to which a user belongs
+
+>> id : shows the uid, groupid and gropu name the current user belongs
+>> groups user_name : this command will show to which group a user belongs
+>> cat /etc/group : this command show the list of the groups
+
+<<======================================>>
+
+12: adding and deleting the user
+>> adduser [user_name] : create a new user inside the home directory
+>> useradd [user_name] : create a new user outside the home directory
+
+>> switching between the users
+> su [user_name] : switch from current user to specified user
+ 
+<!------------> Deleting Users
+>> userdel [user_name] : Delete the user from the (/etc/passwd), but the home directory associated with the user exists
+
+>> deluser --remove-home [user_name] : this deletes the user_name and associated home directory as well
+
+<<======================================>>
+
+13: Creating  new group and changing the groupof an existing user
+>> addgroup [group_name]  : creates a new group with this name
+>> usermod -g [group_name] [user_name] : change the user group from the current group to new group (here : group_name)
+
+<!-------------------->
+>> Deleting a group
+>> sudo delgroup [group_name] : this command deletes a group
+>> sudo groupdel [group_name]
+<<======================================>>
+
+14: Manging user permissions
+>> (Post Exploitation Tip : after managing  a host you can find the files and directories with weak permisions)
+>> and could inject potentially malicious code into them
+
+--->Permissions
+> r --> read only : you can see the content (allows listing the content)
+> w --> write only : you can modify (create, move, remove the file and directory)
+> x --> execute only : you can run the files as the program (allows accessing files in the directory)
+
+---> Permisson Options
+> u --> user (owner : gives permissions to the current users)
+> g --> group assigned to file and dirrcetory (it gives permission to the group to which the currennt user belongs)
+> o --> other (who do not belong to current group to which owner belongs )
+> a --> all (u, g, o)
+
+---> Opertations
+> + --> add permission
+> - --> remove permission
+> = --> make this the only permission (all other permissions will be removed)
+>> chmod u=x [file_name] (if user has read, write, execute permissions then he will have only execute permission)
+
+---> Commands : chomd (change mode command)
+> chmod + 
+
+>> remeber in the directories 
+
+>> drwxr-xr-x 2 root root 2048 Jun 12 07:17 Desktop
+
+> rwx : this is the permissions for the current user
+> r-x : permissions for the group (1st r-x)
+> r-x : permissions for the others
+> root : (1st root is owner)
+> root : (2nd root is group name)
+
+>> -rw-------  1 root root 32216 Jun 20 06:33 .xsession-errors
+
+> rw : permission for the owner (root)
+
+>> sudo -l : list the processes that could be run as root privilage 
+
+
+<============ /etc/sudoers file ==============>
+>> this file contains info regarding which user contains which permission
+
+------------------>>>> Commands
+
+>> chmod g+w file_name : this will give write permission to all the users belongin to current group
+>> chmod guoa+rwx : this will give read write and execute permission to all the users
+
+---------> Post exploitation tip
+>> after compromising a host you will check which programs you can run as the root
+>> and check for the vulnerabilities in thise files
+>> 
+
+<<======================================>>
+
+15:  Process Management in Kali Linux 
+>> in linux every process has a unique ID 
+>> every prorss is associated with user and group
+>> process running by root will have more access rights as compare to other users
+>> 
+
+<<======================================>>
+> Commaands
+>> ps : list the process for the current session
+>> ps -f : list prorss with full formating (mean gives additional information about the process
+by which user it is being executed)
+>> ps -e : list all the process (every process inclusing the background processes)
+>> ps -u user_name : list processes of a specific user
+>> ps -p process_id : display information about process having id "process_id"  
+
+>> Killing or terminating the processes
+
+>> kill process_id : to kill a specific process (suppose the process is not responding)
+>> kill -9 process_id : terminate the process forecfully (use this if no option is woring : because this may harm your system)
+>> ctrl + C : stop the cureently running process
+
+>> Example: open two terminal one as root and another as blackhatos 
+--> run ping command on blackhatos terminal
+--> in the root terminal list the processes being executed by blackhatos 
+--> kill process_id_of_ping 
+--> now this will terminate the process in the blackhatos terminal
+--> similiarly if blackahtos is running putty (remotely accesing the system)
+--> root can terminate the processes being executed by the blackahtos
+
+
+>> Fun with background process
+--> comman_name & : this runs the process in the background
+
+Another way to execute a process in background
+>> run your command >> then press ctrl + Z >> type bg 
+>> now this process is running in the background (check it by typing jobs command) 
+
+
+--> jobs : this command list all the processess running ion the background
+--> fg [n] : take the process in foreground , n : is the process number not pid
+
+One more way to run a process in the background
+>> use a tool : tmux 
+>> type tmux : this will take you to a different terminal
+>> run your command what ever you want 
+>> press CTRL + B (press and leave) then press D (separately): to detach from tmux
+(or type 'tmux detach' by splitting the current terminal)
+>> tmux list-sessions (or 'tmux ls'): lists all the running sessions in the background
+>> to reattach to the the tnux terminal agian use >> tmux attach : this will take you to the tmux again
+
+--> Advance tmux commands
+
+>> tmux new -s session_name
+>> tmux attach -t 0(session_number)
+>> tmux attach -t seesion_name
+>> tmux kill-session -t session_name
+>> tmux kill-session -t 0(session_number)
+
+Running backgroud process (advnance command)
+
+>> nohup command_name & : the command will keep executing even if the session is terminated
+
+<<======================================>>
+Command redirection and control output
+Suppose you want to save the output of a command into a file
+>> ping google.com > ping.txt
+>> dirb https://facebook.com > dirb.txt
+Suppose you have multiple file of usernames and you want to combine it into one single file
+>> cat user1.txt user2.txt user3.txt > all-user.txt
+Remember this command is going to overrride the contet of the file if already exists
+So to solve this problem (if we want to append the output to the preexisting content of the file)
+>> cat user4.txt >> all-user.txt
+>> cat -n all-user.txt (this commad will show you numbering on each line)
+
+<<======================================>>
+Piping the commands
+Suppose there is folder having large number of contents (files/folders)
+and you want to see it (for example nmap scripts)
+>> ls /usr/share/nmap/scripts/ | less
+If you want to see only specific programs (files/folders)
+This command will only display the files where kryword match
+>> ls /usr/share/nmap/scripts/ | grep [keyword] (e.g. brute)
+
+<<======================================>>
+Advance usage of 'grep' command
+>> grep [key_word] ['file_name] -> to show the content based on the keyword
+
+>> grep [key_word] [file_name] | cut -d " " -f 2
+-> this command going to give you the second field in a
+-> row column based data e.g [A B C D E F G H I J] 
+-> the out put is going to be second column
+
+>> grep [key_word] [file_name] | cut -d " " -f 2 | sort -u 
+-> this command is going to give the unique entris of the second column
+-> of the above output
+
+>> grep [key_word] [file_name] | cut -d " " -f 2 | sort -u > filtered-result.txt
+-> saving the output in a file using command redirection technique
+-> try these commands on the resources given in the tutorials
