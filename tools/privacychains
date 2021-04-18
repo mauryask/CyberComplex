@@ -1,0 +1,19 @@
+How to be annonymous on kali linux 
+
+Tool : proxychains
+1) sudo nano /etc/proxychains.conf
+2) uncomment dynamic_chain
+3) make sure proxy_dns is uncommeneted
+4) add the below IP 
+>> socks5 127.0.0.1 9050 
+
+socks5 is more advance and secure than socks4. 
+All your traffic will be routed through tor network
+
+>> sudo apt install tor (if not installed)
+>> sudo service tor start
+
+Open any browser or run any program
+
+>> proxychains firefox duckduckgo.com
+>> proxychains nmap --
