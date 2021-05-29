@@ -16,7 +16,7 @@ if(isset($_POST['submit']))
 	{
 	   if($fileError === 0)//no error
 	   {
-		   if($filesize < 1024000) # 1MB size 
+		   if($fileSize < 1024000) # 1MB size 
 		   {
 
 			   # this line fixes a vulnerability
